@@ -968,9 +968,9 @@ async function publishToSupabase() {
       else { var response = await fetch(source); blob = await response.blob(); }
       var ext = (blob.type && blob.type.indexOf('png') >= 0) ? 'png' : 'webp';
       var path = 'site/' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,10) + '.' + ext;
-      var up = await client.storage.from('site-images').upload(path, blob, { upsert: false, contentType: blob.type || 'image/webp', cacheControl: '3600' });
+      var up = await client.storage.from('portfolio-images').upload(path, blob, { upsert: false, contentType: blob.type || 'image/webp', cacheControl: '3600' });
       if (up.error) throw up.error;
-      var pub = client.storage.from('site-images').getPublicUrl(path);
+      var pub = client.storage .from('portfolio-images').getPublicUrl(path);
       uploaded[key] = pub.data.publicUrl;
       return uploaded[key];
     }
